@@ -2,13 +2,13 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 /* --- LAYOUTS --- */
-import MainLayout from '../layouts/MainLayout';
+import MainLayout from '@/layouts';
 
 /* --- PAGES --- */
-import Home from '../pages/home/Home';
-import LogicPage from '../pages/logic/LogicPage';
-import DesignPage from '../pages/design/DesignPage';
-import NotFound from '../pages/NotFound';
+import Home from '@/pages/home';
+import LogicPage from '@/pages/logic';
+import DesignPage from '@/pages/design';
+import NotFound from '@pages';
 
 /**
  * AppRoutes Component
