@@ -1,14 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useScrollReveal } from '../../hooks/useScroll';
-import { useToast } from '../../context/ToastContext';
+import { useScrollReveal } from '@/hooks/common';
+import { useToast } from '@context';
 
 // Import komponen-komponen kecil
-import HeroSection from '../../components/features/HeroSection';
-import SplitContainer from '../../components/features/SplitContainer';
-import AboutSection from '../../components/features/AboutSection';
-import EquationDisplay from '../../components/features/EquationDisplay';
-import ContactSection from '../../components/features/ContactSection';
+import { HeroSection, SplitContainer, AboutSection, EquationDisplay, ContactSection } from '@components/features'
 
 import styles from './home.module.css';
 
