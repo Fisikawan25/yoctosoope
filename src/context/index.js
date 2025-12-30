@@ -1,2 +1,1 @@
-export { useToast } from './ToasContext'
-export
+export { useToast, ToastProvider } from './ToasContext'
