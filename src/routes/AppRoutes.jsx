@@ -5,60 +5,42 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 
 /* --- PAGES --- */
-import Home from '../pages/home/home';
-import NotFound from '../pages/NotFound'; // Pastikan file ini ada sesuai struktur folder Anda
+import Home from '../pages/home/Home';
+import LogicPage from '../pages/logic/LogicPage';
+import DesignPage from '../pages/design/DesignPage';
+import NotFound from '../pages/NotFound';
 
-/* --- PLACEHOLDER COMPONENTS --- */
-/* Note: Komponen ini hanya sementara agar link tidak error (404/Crash).
-   Nanti Anda bisa menggantinya dengan import halaman asli, 
-   misalnya: import LogicPage from '../pages/logic/LogicPage';
-*/
-const LogicPage = () => (
-    <div style={{ 
-        padding: '10rem 2rem', 
-        textAlign: 'center', 
-        color: 'var(--text-primary)',
-        fontFamily: 'var(--font-mono)' 
-    }}>
-        <h1>[ SYSTEM MODULE: LOGIC ]</h1>
-        <p>Analyzing algorithms... (Page Under Construction)</p>
-    </div>
-);
-
-const DesignPage = () => (
-    <div style={{ 
-        padding: '10rem 2rem', 
-        textAlign: 'center', 
-        color: 'var(--text-primary)', 
-        fontFamily: 'var(--font-serif)'
-    }}>
-        <h1>[ SYSTEM MODULE: DESIGN ]</h1>
-        <p>Rendering aesthetics... (Page Under Construction)</p>
-    </div>
-);
-
+/**
+ * AppRoutes Component
+ * 
+ * Defines the routing structure dan navigation map untuk seluruh aplikasi.
+ * 
+ * Route Mapping:
+ * - "/" → Home page
+ * - "/logic" → Logic & Algorithms page
+ * - "/design" → Design & Aesthetics page
+ * - "*" → Not Found (404) page
+ * 
+ * Setiap route dibungkus dengan MainLayout untuk konsistensi UI.
+ */
 const AppRoutes = () => {
-    return (
-        <Routes>
-            {/* Route Utama dengan Layout */}
-            <Route path="/" element={<MainLayout />}>
-                
-                {/* Halaman Depan (Home) */}
-                <Route index element={<Home />} />
-                
-                {/* Halaman Modul (Tujuan Navigasi) */}
-                <Route path="logic" element={<LogicPage />} />
-                <Route path="design" element={<DesignPage />} />
-                
-                {/* Halaman Blog (Opsional, jika sudah ada) */}
-                {/* <Route path="blog" element={<BlogList />} /> */}
-                
-            </Route>
+  return (
+    <Routes>
+      <Route element={<MainLayout />}>
+        {/* Home Route */}
+        <Route path="/" element={<Home />} />
 
-            {/* 404 Handler (Halaman Tidak Ditemukan) */}
-            <Route path="*" element={<NotFound />} />
-        </Routes>
-    );
+        {/* Logic Route */}
+        <Route path="/logic" element={<LogicPage />} />
+
+        {/* Design Route */}
+        <Route path="/design" element={<DesignPage />} />
+
+        {/* Catch-all untuk 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default AppRoutes;
