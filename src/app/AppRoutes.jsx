@@ -8,7 +8,7 @@ import { MainLayout } from '@/layouts';
 import { Home } from '@/pages/home';
 import { LogicPage } from '@/pages/logic';
 import { DesignPage } from '@/pages/design';
-import { NotFound } from '@pages';
+import { NotFound } from '@/pages';
 
 /**
  * AppRoutes Component
