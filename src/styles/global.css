@@ -1,0 +1,144 @@
+/* --- GLOBAL RESET & BASE STYLES --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+button { cursor: pointer; }
+
+/* Custom Focus Ring for Accessibility */
+:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+.viewport-wrapper { min-height: 100vh; display: flex; flex-direction: column; width: 100%; }
+
+/* --- GLOBAL EFFECTS --- */
+
+/* Noise Texture */
+.noise-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 900; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: light) {
+    .noise-overlay {
+        opacity: 0.06 !important; 
+    }
+}
+
+/* CRT Turn-off Effect */
+.crt-overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: white; opacity: 0; pointer-events: none; 
+    z-index: 999; transform: scale(1); 
+}
+.crt-overlay.active { animation: turnOff 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; pointer-events: all; }
+
+@keyframes turnOff { 
+    0% { opacity: 0; transform: scale(1, 1); background: #fff; } 
+    40% { opacity: 1; transform: scale(1, 1); background: #fff; } 
+    100% { opacity: 1; transform: scale(1, 0.002); background: #000; } 
+}
+
+/* Scroll Reveal Utilities */
+.scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease, transform 1s var(--ease-out-expo); }
+.scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1.0s; }
+
+/* --- SYSTEM TOAST NOTIFICATION --- */
+.system-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--bg-color);
+    border: 1px solid var(--accent-color);
+    color: var(--text-primary);
+    padding: 1rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    
+    /* Glassmorphism Effect (Optional for Aesthetics) */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    
+    /* Initial State: Hidden */
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    transform: translateY(100px);
+    opacity: 0;
+    
+    /* Smooth Physics Transition */
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Active State: Visible */
+.system-toast.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    color: var(--accent-color);
+    font-size: 1.2em;
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 900px) {
+    .system-toast {
+        right: 50%;
+        transform: translateX(50%) translateY(100px); /* Centered & Hidden */
+        bottom: 1rem;
+        width: 90%;
+        justify-content: center;
+    }
+    
+    .system-toast.active {
+        transform: translateX(50%) translateY(0); /* Centered & Visible */
+    }
+}
+/* --- FOOTER STYLE (Yang Sebelumnya Hilang) --- */
+.footer {
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto; /* Kunci agar footer selalu di bawah (Sticky Bottom) */
+    opacity: 0.8;
+}
+/* src/assets/styles/global.css */
+
+@font-face {
+    font-family: 'STIX Two Math Local';
+    src: url('/fonts/STIXTwoMath-Regular.ttf') format('truetype'); /* Perubahan di sini */
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Menjaga performa agar teks tidak hilang saat loading */
+}

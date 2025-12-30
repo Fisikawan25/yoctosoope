@@ -1,0 +1,39 @@
+/* --- TYPOGRAPHY & TEXT UTILITIES --- */
+
+/* Note: Pastikan font 'Playfair Display' dan 'JetBrains Mono' 
+   sudah di-import di index.html atau via package manager */
+
+.serif { font-family: var(--font-serif); }
+.mono { font-family: var(--font-mono); }
+.italic { font-style: italic; }
+
+/* Text Animations / Effects */
+.reveal-text { 
+    opacity: 0; 
+    transform: translateY(30px); 
+    animation: fadeInUp 1s var(--ease-out-expo) forwards; 
+}
+
+/* Math Flow Gradient Text */
+.math-flow {
+    background: linear-gradient(90deg, var(--text-muted) 0%, var(--accent-color) 50%, var(--text-muted) 100%);
+    background-size: 200% auto; 
+    color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text;
+    animation: flowGradient 6s linear infinite; 
+    display: inline-block; 
+    font-weight: 500;
+    will-change: background-position;
+}
+
+.math-op { font-style: normal; margin: 0 2px; }
+
+@keyframes flowGradient { 
+    0% { background-position: 200% center; } 
+    100% { background-position: -200% center; } 
+}
+
+@keyframes fadeInUp { 
+    to { opacity: 1; transform: translateY(0); } 
+}
