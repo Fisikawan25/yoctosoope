@@ -1,0 +1,483 @@
+/* src/pages/home/home.module.css */
+.homeWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+/* --- HERO SECTION --- */
+.hero {
+    flex: 0 0 auto;
+    min-height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-md) var(--space-sm);
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.heroContent {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.heroMeta {
+    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    margin-bottom: var(--space-sm);
+    /* Animasi dihandle oleh global class reveal-text atau inline style dari hooks */
+}
+
+.pathSep {
+    color: var(--text-muted);
+    margin: 0 4px;
+}
+
+.cursorBlink {
+    display: inline-block;
+    width: 8px; height: 1em;
+    background-color: var(--accent-color);
+    vertical-align: middle;
+    margin-left: 5px;
+    animation: blink 1.2s steps(2, start) infinite;
+}
+
+.heroTitle {
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.heroDesc {
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.heroEquation {
+    /* Gunakan STIX Two Math untuk memastikan Nabla muncul */
+    font-family: 'STIX Two Math Local', 'STIX Two Text', serif;
+    font-style: normal;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    margin-top: 1.5rem;
+    letter-spacing: 1px;
+}
+
+@keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+/* --- SPLIT PANELS --- */
+.splitContainer {
+    flex: 1;
+    display: flex;
+    width: 100%;
+    position: relative;
+    /* Opacity diatur oleh logic React (useScrollReveal) */
+}
+
+.splitPanel {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid var(--border-color);
+    transition: border-color 0.5s ease;
+    cursor: pointer;
+    overflow: hidden;
+    background: transparent;
+    padding: var(--space-md);
+}
+
+.splitPanel:last-child { border-right: none; }
+
+/* Spotlight Logic */
+.splitPanel::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(
+        800px circle at var(--x, 50%) var(--y, 50%), 
+        var(--spotlight-color), 
+        transparent 40%
+    );
+    z-index: 1; opacity: 0; 
+    transition: opacity 0.5s ease; 
+    pointer-events: none;
+}
+
+.panelIllustration {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55%; max-width: 300px; height: auto;
+    opacity: var(--ill-opacity-base);
+    pointer-events: none; z-index: 1;
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    overflow: visible;
+}
+
+.panelContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    transition: transform 0.4s ease;
+    width: 100%;
+    max-width: 500px;
+}
+
+.panelNum {
+    position: absolute;
+    top: var(--space-sm); left: var(--space-sm);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: color 0.3s;
+    z-index: 2;
+}
+
+.panelTitle {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.panelDesc {
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    color: var(--text-primary);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease 0.1s;
+}
+
+.panelCta {
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    border: none; padding: 0;
+    display: inline-flex; align-items: center;
+    opacity: 0.7;
+    transition: all 0.4s var(--ease-out-expo);
+    text-transform: uppercase;
+    position: relative;
+    background: none;
+}
+
+.panelCta::after {
+    content: '';
+    position: absolute; bottom: -5px; left: 0;
+    width: 100%; height: 1px;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.nablaIcon {
+    color: var(--accent-color);
+    display: inline-block; margin-left: 10px;
+    font-size: 1.1em; vertical-align: -1px;
+    animation: nablaPulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+@keyframes nablaPulse { 0%, 100% { opacity: 1; transform: scale(1); text-shadow: 0 0 5px var(--accent-color); } 50% { opacity: 0.3; transform: scale(0.95); text-shadow: none; } }
+
+/* --- INTERACTION (HOVER) --- */
+@media (hover: hover) {
+    .splitContainer:hover .splitPanel { opacity: 0.3; filter: blur(2px); }
+    .splitContainer .splitPanel:hover { flex: 1.5; opacity: 1; filter: blur(0); }
+    .splitPanel:hover::before, .splitPanel:active::before { opacity: 1; }
+    .splitPanel:hover .panelIllustration { opacity: var(--ill-opacity-hover); transform: translate(-50%, -50%) scale(1.05); }
+    .splitPanel:hover .panelTitle { color: var(--text-primary); text-shadow: 0 0 20px var(--accent-color); transform: scale(1.02); }
+    .splitPanel:hover .panelNum { color: var(--accent-color); }
+    .splitPanel:hover .panelDesc { opacity: 1; transform: translateY(0); }
+    .splitPanel:hover .panelCta { opacity: 1; letter-spacing: 4px; }
+    .splitPanel:hover .panelCta::after { transform: scaleX(1); }
+    .splitPanel:hover .nablaIcon { transform: translateX(5px); }
+}
+
+/* ==========================================================================
+   BAGIAN YANG SEBELUMNYA HILANG (DITAMBAHKAN & DISESUAIKAN KE CAMELCASE)
+   ========================================================================== */
+
+/* --- ABOUT SECTION --- */
+.aboutSection {
+    padding: var(--space-lg) var(--space-md) 0 var(--space-md);
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* Transisi opacity dihandle oleh logic React */
+}
+
+.aboutContent {
+    max-width: 800px;
+    text-align: center;
+}
+
+.sectionTag {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+    display: block;
+    letter-spacing: 2px;
+}
+
+.aboutTitle {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.aboutQuote {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    margin-bottom: 2rem;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+.aboutText {
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.aboutText strong {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+/* --- EQUATION VOID --- */
+.equationVoid {
+    width: 100%;
+    padding: 2rem 2rem 4rem 2rem;
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    position: relative;
+}
+
+/* Container untuk rumus (agar bisa ditumpuk/animasi) */
+.equationDisplay {
+    /* Prioritaskan STIX Two Math untuk simbol, fallback ke Times New Roman */
+    font-family: 'STIX Two Math Local', 'Times New Roman', Times, serif;
+    font-style: normal;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    
+    /* Warna Text Gradient */
+ background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Animasi background gradient */
+    animation: equationPulse 3s ease-in-out infinite alternate;
+    
+    /* State default (sebelum aktif) */
+    opacity: 0; 
+    transform: translateY(10px) scale(0.95);
+    filter: blur(5px);
+    
+    /* Transisi Halus */
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    /* Posisi Absolute agar tidak layout shift saat ganti rumus */
+    position: absolute;
+    width: 100%;
+}
+
+.active {
+    opacity: 0.9;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+@keyframes equationPulse { 
+    0% { background-position: 0% 50%; } 
+    100% { background-position: 100% 50%; } 
+}
+
+/* --- CONTACT SECTION --- */
+.contactSection {
+    padding: 0 var(--space-md) 6rem var(--space-md);
+    text-align: center;
+    width: 100%;
+}
+
+.contactTitle {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--accent-color);
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.contactGrid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.contactLink {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    position: relative;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: none;
+    border: none;
+}
+
+.iconSvg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+.contactLink::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.3s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.contactLink:hover {
+    color: var(--text-primary);
+}
+
+.contactLink:hover::after {
+    width: 100%;
+}
+
+.contactLink:hover .iconSvg {
+    transform: translateY(-2px);
+}
+
+/* --- MOBILE RESPONSIVE UPDATES --- */
+@media (max-width: 900px) {
+    .hero { min-height: 40vh; padding: var(--space-lg) var(--space-md); }
+    .splitContainer { flex-direction: column; height: auto; }
+    
+    .splitPanel {
+        min-height: 35vh;
+        border-right: none;
+        border-top: 1px solid var(--border-color);
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    /* Reset hover logic for mobile */
+    .splitContainer:hover .splitPanel { opacity: 1; filter: none; }
+    .splitPanel:hover { flex: 1; }
+
+    .panelIllustration {
+        animation: mobilePulse 6s ease-in-out infinite alternate;
+    }
+
+    .splitPanel:active::before { opacity: 1; }
+    .splitPanel:active .panelIllustration {
+        opacity: var(--ill-opacity-hover);
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+    
+    .splitPanel:active .panelTitle {
+        color: var(--text-primary);
+        text-shadow: 0 0 15px var(--accent-color);
+        transform: scale(1.02);
+    }
+    .splitPanel:active .panelNum { color: var(--accent-color); }
+    .splitPanel:active .panelCta { opacity: 1; letter-spacing: 3px; }
+    .splitPanel:active .panelCta::after { transform: scaleX(1); }
+
+    .panelDesc { opacity: 1; transform: translateY(0); margin-top: 1rem; }
+    .panelCta { opacity: 1; margin-top: 1rem; }
+    
+    .contactGrid { gap: 2rem; flex-direction: column; align-items: center; }
+}
+
+@keyframes mobilePulse {
+    0% { opacity: var(--ill-opacity-base); transform: translate(-50%, -50%) scale(0.98); }
+    100% { opacity: calc(var(--ill-opacity-base) + 0.2); transform: translate(-50%, -50%) scale(1.08); }
+}
+/* Tambahkan ini di bagian paling bawah home.module.css */
+
+.hero, 
+.splitContainer, 
+.aboutSection, 
+.equationVoid, 
+.contactSection {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+    /* Gunakan variabel --ease-out-expo jika ingin konsisten, 
+       tapi pastikan variabel itu terbaca atau hardcode saja nilainya seperti di atas */
+}
+.isVisible {
+    opacity: 1 !important; /* Tambahkan !important jika ingin 100% yakin */
+    transform: translateY(0);
+}
+/* --- SVG ANIMATIONS (Missing parts) --- */
+
+/* Definisi Keyframes (Lokal di module ini) */
+@keyframes waveOscillation { 
+    0%, 100% { transform: scaleY(1); } 
+    50% { transform: scaleY(0.7); } 
+}
+
+@keyframes orbitRotate { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
+
+/* Class Wave (Jurnal Alat) */
+.wavePath1 {
+    animation: waveOscillation 4s ease-in-out infinite alternate;
+    transform-origin: center;
+}
+
+.wavePath2 {
+    animation: waveOscillation 5s ease-in-out infinite alternate-reverse;
+    opacity: 0.7;
+    transform-origin: center;
+}
+
+/* Class Orbit (Jurnal Opini) */
+.orbitPath1 {
+    transform-origin: center;
+    animation: orbitRotate 20s linear infinite;
+}
+
+.orbitPath2 {
+    transform-origin: center;
+    animation: orbitRotate 30s linear infinite reverse;
+}
