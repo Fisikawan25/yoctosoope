@@ -1,5 +1,6 @@
-export { default as HeroSection } from './HeroSection';
-export { default as SplitContainer } from './SplitContainer';
-export { default as AboutSection } from './AboutSection';
-export { default as EquationDisplay } from './EquationDisplay';
-export { default as ContactSection } from './ContactSection';
+export { HeroSection } from './HeroSection';
+export { SplitContainer } from './SplitContainer';
+export { AboutSection } from './AboutSection';
+export { EquationDisplay } from './EquationDisplay';
+export { ContactSection } from './ContactSection';
+
