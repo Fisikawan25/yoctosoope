@@ -1,2 +1,2 @@
-export { useScroll } from './useScroll';
+export { useScrollReveal } from './useScroll'; // Sesuaikan namanya!
 export { useTheme } from './useTheme';
