@@ -1,1 +1,5 @@
-export { HeroSection, SplitContainer, AboutSection, EquationDisplay, ContactSection } from '@/pages/home/components'
+export { default as HeroSection } from './HeroSection';
+export { default as SplitContainer } from './SplitContainer';
+export { default as AboutSection } from './AboutSection';
+export { default as EquationDisplay } from './EquationDisplay';
+export { default as ContactSection } from './ContactSection';
