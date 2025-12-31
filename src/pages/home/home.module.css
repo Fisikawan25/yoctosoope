@@ -107,7 +107,15 @@
 }
 
 @keyframes nablaPulse { 0%, 100% { opacity: 1; transform: scale(1); text-shadow: 0 0 5px var(--accent-color); } 50% { opacity: 0.3; transform: scale(0.95); text-shadow: none; } }
-
+/* Tambahkan ini agar panel berjejer kiri-kanan (Split) */
+.splitContainer {
+    width: 100%;
+    display: flex; /* KUNCI UTAMA */
+    flex-direction: row;
+    min-height: 50vh; /* Sesuaikan tinggi */
+    position: relative;
+    z-index: 5;
+}
 /* --- INTERACTION (HOVER) --- */
 @media (hover: hover) {
     .splitContainer:hover .splitPanel { opacity: 0.3; filter: blur(2px); }
