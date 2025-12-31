@@ -71,7 +71,7 @@ const Home = () => {
       />
 
       {/* Equation Display (Slideshow) */}
-      <section ref={eqVoidRef} className={`${styles.eqVoidWrapper} ${isEqVoidVisible ? styles.visible : ''}`}>
+      <section ref={eqVoidRef} className={`${styles.equationVoid} ${isEqVoidVisible ? styles.visible : ''}`}>
         <EquationDisplay />
       </section>
 
