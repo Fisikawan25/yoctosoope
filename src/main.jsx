@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom'; 
 import { AppRoutes } from '@/routes/AppRoutes';
 import { ToastProvider } from '@/context/ToastContext'; 
-import './styles/variables.css'; 
-import './styles/typography.css'; 
-import './styles/global.css';     // Pastikan urutan: var -> typo -> global
+import '@/styles/variables.css'; 
+import '@/styles/typography.css'; 
+import '@/styles/global.css';     // Pastikan urutan: var -> typo -> global
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
