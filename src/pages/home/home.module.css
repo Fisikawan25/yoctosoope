@@ -361,7 +361,7 @@
     /* Gunakan variabel --ease-out-expo jika ingin konsisten, 
        tapi pastikan variabel itu terbaca atau hardcode saja nilainya seperti di atas */
 }
-.isVisible {
+.visible {
     opacity: 1 !important; /* Tambahkan !important jika ingin 100% yakin */
     transform: translateY(0);
 }
