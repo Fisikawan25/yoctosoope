@@ -1,5 +1,5 @@
 import React from 'react';
-import SplitPanel from '../ui/cards/SplitPanel';
+import SplitPanel from '@/components/ui/SplitPanel.jsx';
 import styles from '../../pages/home/home.module.css';
 
 /**
