@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import { MainLayout } from '@/layouts';
 
 /* --- PAGES --- */
-import { Home } from '@/pages/home';
+import Home from '@/pages/home';
 import { LogicPage } from '@/pages/logic';
 import { DesignPage } from '@/pages/design';
 import { NotFound } from '@/pages';
