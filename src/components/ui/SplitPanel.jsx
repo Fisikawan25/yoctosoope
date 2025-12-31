@@ -1,19 +1,11 @@
 import React from 'react';
-import styles from '../../../pages/home/home.module.css';
+/* Import CSS Module yang baru dibuat */
+import styles from './SplitPanel.module.css';
 
 /**
  * SplitPanel Component (Reusable Card Component)
- * 
- * Komponen untuk menampilkan panel dengan gradient border dan deskripsi.
- * Digunakan untuk "Tools" dan "Journal" sections.
- * 
- * Props:
- *   - number: nomor panel (untuk display)
- *   - title: judul panel (e.g., "ALAT", "JURNAL")
- *   - description: deskripsi singkat
- *   - gradientId: ID unik untuk SVG gradient (e.g., "grad-tools", "grad-journal")
- *   - onClick: callback function ketika card diklik
- *   - children: SVG icon atau konten lainnya
+ * * Komponen UI independen untuk menampilkan panel interaktif.
+ * Style sekarang terisolasi di SplitPanel.module.css
  */
 const SplitPanel = ({ 
   number, 
@@ -54,11 +46,15 @@ const SplitPanel = ({
 
       {/* Content */}
       <div className={styles.panelContent}>
+        {/* Menggunakan class panelNumber sesuai CSS baru */}
         <span className={styles.panelNumber}>{number}</span>
+        
         <h3 className={styles.panelTitle}>{title}</h3>
+        
+        {/* Menggunakan class panelDescription sesuai CSS baru */}
         <p className={styles.panelDescription}>{description}</p>
         
-        {/* Icon dari props */}
+        {/* Icon/Children */}
         {children}
       </div>
     </div>
