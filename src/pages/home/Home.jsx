@@ -3,28 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import { useScrollReveal } from '@/hooks/common';
 import { useToast } from '@/context';
 
-// Import komponen-komponen kecil
-import { HeroSection, SplitContainer, AboutSection, EquationDisplay, ContactSection } from './components'
+// Import komponen-komponen per-section dari folder components
+import { 
+  HeroSection, 
+  SplitContainer, 
+  AboutSection, 
+  EquationDisplay, 
+  ContactSection 
+} from './components';
 
 import styles from './home.module.css';
 
 /**
  * Home Page Component
- * 
- * Main assembler yang mengorkestra semua sub-components.
+ * * Main assembler yang mengorkestra semua sub-components.
  * Menghandle scroll reveal logic dan navigation handlers.
- * 
- * Tanggung jawab:
- * - Setup scroll reveal hooks untuk semua sections
- * - Handle mouse tracking untuk spotlight effect
- * - Handle navigation ke pages lain
- * - Mengorganisir layout halaman
  */
 const Home = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
   // --- SCROLL REVEAL HOOKS ---
+  // Threshold 0.1 berarti animasi mulai saat 10% elemen masuk layar
   const [heroRef, isHeroVisible] = useScrollReveal(0.1);
   const [splitRef, isSplitVisible] = useScrollReveal(0.1);
   const [aboutRef, isAboutVisible] = useScrollReveal(0.2);
@@ -32,6 +32,7 @@ const Home = () => {
   const [contactRef, isContactVisible] = useScrollReveal(0.1);
 
   // --- SPOTLIGHT MOUSE TRACKING ---
+  // Efek cahaya mengikuti mouse (jika didukung CSS)
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty('--x', `${e.clientX - rect.left}px`);
@@ -41,6 +42,7 @@ const Home = () => {
   // --- NAVIGATION HANDLERS ---
   const handleNav = (path, label) => {
     showToast(`Memuat modul: ${label}...`);
+    // Delay sedikit agar user sempat melihat feedback toast/animasi
     setTimeout(() => navigate(path), 800);
   };
 
@@ -48,7 +50,9 @@ const Home = () => {
   const handleJournalClick = () => handleNav('/journal', 'Journal');
 
   return (
-    <main className={styles.home}>
+    // PERBAIKAN: Gunakan styles.homeWrapper sesuai definisi di CSS Module
+    <main className={styles.homeWrapper}>
+      
       {/* Hero Section */}
       <HeroSection 
         heroRef={heroRef}
@@ -70,8 +74,11 @@ const Home = () => {
         isAboutVisible={isAboutVisible}
       />
 
-      {/* Equation Display (Slideshow) */}
-      <section ref={eqVoidRef} className={`${styles.equationVoid} ${isEqVoidVisible ? styles.visible : ''}`}>
+      {/* Equation Display (Slideshow Rumus) */}
+      <section 
+        ref={eqVoidRef} 
+        className={`${styles.equationVoid} ${isEqVoidVisible ? styles.visible : ''}`}
+      >
         <EquationDisplay />
       </section>
 
