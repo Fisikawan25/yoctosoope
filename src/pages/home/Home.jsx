@@ -4,7 +4,7 @@ import { useScrollReveal } from '@/hooks/common';
 import { useToast } from '@context';
 
 // Import komponen-komponen kecil
-import { HeroSection, SplitContainer, AboutSection, EquationDisplay, ContactSection } from '@/pages/home/components'
+import { HeroSection, SplitContainer, AboutSection, EquationDisplay, ContactSection } from './components'
 
 import styles from './home.module.css';
 
