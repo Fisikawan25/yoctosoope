@@ -68,4 +68,3 @@ const ContactSection = ({ contactRef, isContactVisible }) => {
 };
 
 export default ContactSection;
-s
