@@ -1,0 +1,128 @@
+/* src/components/ui/SplitPanel.module.css */
+
+.splitPanel {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid transparent; /* Placeholder agar layout stabil */
+    transition: all 0.5s ease;
+    cursor: pointer;
+    overflow: hidden;
+    background: transparent;
+    padding: var(--space-md);
+    
+    /* Variable lokal untuk spotlight mouse tracking */
+    --x: 50%;
+    --y: 50%;
+    --spotlight-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Logic Border Bawah/Samping untuk Responsiveness */
+.splitPanel:not(:last-child) {
+    border-right: 1px solid var(--border-color);
+}
+
+/* Spotlight Effect */
+.splitPanel::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(
+        800px circle at var(--x) var(--y), 
+        var(--spotlight-color), 
+        transparent 40%
+    );
+    z-index: 1; 
+    opacity: 0; 
+    transition: opacity 0.5s ease; 
+    pointer-events: none;
+}
+
+/* SVG Border Handling */
+.panelBorder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.panelContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    transition: transform 0.4s ease;
+    width: 100%;
+    max-width: 500px;
+}
+
+.panelNumber {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: color 0.3s;
+    z-index: 2;
+}
+
+.panelTitle {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    color: var(--text-primary);
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.panelDescription {
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    color: var(--text-primary);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease 0.1s;
+}
+
+/* --- INTERACTION STATES (Hover) --- */
+@media (hover: hover) {
+    .splitPanel:hover::before { opacity: 1; }
+    
+    .splitPanel:hover .panelTitle { 
+        color: var(--text-primary); 
+        text-shadow: 0 0 20px var(--accent-color); 
+        transform: scale(1.02); 
+    }
+    
+    .splitPanel:hover .panelNumber { color: var(--accent-color); }
+    
+    .splitPanel:hover .panelDescription { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 900px) {
+    .splitPanel {
+        min-height: 35vh;
+        border-right: none !important;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .panelDescription {
+        opacity: 1; 
+        transform: translateY(0);
+        margin-top: 1rem;
+    }
+}
